@@ -133,13 +133,13 @@ if __name__ == "__main__":
 
 		# set PID values for panning
 		panP = manager.Value("f", 0.09)
-		panI = manager.Value("f", 0.10)
-		panD = manager.Value("f", 0.005)
+		panI = manager.Value("f", 0.08)
+		panD = manager.Value("f", 0.002)
 
 		# set PID values for tilting
-		tiltP = manager.Value("f", 0.08)#start to oscillates at 0.15
-		tiltI = manager.Value("f", 0.13)
-		tiltD = manager.Value("f", 0.005)
+		tiltP = manager.Value("f", 0.11)
+		tiltI = manager.Value("f", 0.10)
+		tiltD = manager.Value("f", 0.002)
 
 		# we have 4 independent processes
 		# 1. objectCenter  - finds/localizes the object
