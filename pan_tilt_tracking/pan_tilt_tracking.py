@@ -38,9 +38,7 @@ def obj_center(args, objX, objY, centerX, centerY):
 	time.sleep(2.0)
 
 	# initialize the object center finder
-	#obj = ObjCenter(args["cascade"])
-
-	obj = ObjCenter('haarcascade_fullbody.xml')
+	obj = ObjCenter(args["cascade"])
 
 	# loop indefinitely
 	while True:
