@@ -1,0 +1,44 @@
+name: Defang
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Whether to deploy up or down
+        required: true
+        default: up
+        type: choice
+        options:
+          - up
+          - down
+      stack:
+        description: The stack to deploy up or down. (Leave blank for default)
+        default: production
+jobs:
+  defang:
+    name: Defang ${{ github.event.inputs.action || 'up' }} ${{ github.event.inputs.stack || 'production' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    concurrency:
+      cancel-in-progress: false
+      group: deploy-3D-Printed-AI-Nerf-Sentry-Turret-${{ github.event.inputs.stack || 'production' }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Defang ${{ github.event.inputs.action || 'up' }} ${{ github.event.inputs.stack || 'production' }}
+        uses: DefangLabs/defang-github-action@v1
+        with:
+          command: ${{ github.event.inputs.action || 'up' }}
+          project: 3D-Printed-AI-Nerf-Sentry-Turret
+          stack: ${{ github.event.inputs.stack || 'production' }}
+      - name: Deployment Summary
+        uses: DefangLabs/defang-github-action@v1
+        with:
+          command: services
+          project: 3D-Printed-AI-Nerf-Sentry-Turret
+          stack: ${{ github.event.inputs.stack || 'production' }}
+    environment: defang-production
